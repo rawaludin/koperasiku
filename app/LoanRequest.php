@@ -25,4 +25,23 @@ class LoanRequest extends Model
     {
         return $this->belongsTo(User::class, 'admin_id');
     }
+
+    public function getStatusAttribute()
+    {
+        if ($this->is_approved) {
+            return "Approved";
+        }
+
+        if (!$this->is_approved && $this->admin_id) {
+            return "Rejected";
+        }
+
+        if ($this->is_submitted) {
+            return "Waiting Approval";
+        }
+
+        if (!$this->is_submitted) {
+            return "Draft";
+        }
+    }
 }
