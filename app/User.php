@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\LoanRequest;
 
 class User extends Authenticatable
 {
@@ -38,5 +39,20 @@ class User extends Authenticatable
     public function scopeMember($query)
     {
         return $query->where('level', static::ACCESS_MEMBER);
+    }
+
+    public function isMember()
+    {
+        return $this->level == static::ACCESS_MEMBER;
+    }
+
+    public function isAdmin()
+    {
+        return $this->level == static::ACCESS_ADMIN;
+    }
+
+    public function loanRequests()
+    {
+        return $this->hasMany(LoanRequest::class, 'member_id');
     }
 }

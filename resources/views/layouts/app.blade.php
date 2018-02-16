@@ -27,7 +27,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        @if (auth()->check() && auth()->user()->isMember())
+                            <li><a class="nav-link" href="{{ route('loan-requests.index') }}">Pinjaman</a></li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
