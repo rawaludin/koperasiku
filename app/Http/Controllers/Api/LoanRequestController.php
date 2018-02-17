@@ -6,6 +6,7 @@ use App\LoanRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\LoanRequestResource;
+use App\Http\Requests\StoreLoanRequest;
 
 class LoanRequestController extends Controller
 {
@@ -39,9 +40,16 @@ class LoanRequestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreLoanRequest $request)
     {
-        //
+        $this->authorize('create', LoanRequest::class);
+        // mengambil data json payload
+        $payload = $request->only('amount', 'duration', 'is_submitted') + ['member_id' => auth()->user()->id];
+        // membuat record di db
+        $loanRequest = LoanRequest::create($payload);
+
+        // response API berupa item
+        return new LoanRequestResource($loanRequest);
     }
 
     /**
