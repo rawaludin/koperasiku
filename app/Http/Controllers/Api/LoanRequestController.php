@@ -75,7 +75,7 @@ class LoanRequestController extends Controller
      */
     public function edit(LoanRequest $loanRequest)
     {
-        //
+
     }
 
     /**
@@ -85,9 +85,16 @@ class LoanRequestController extends Controller
      * @param  \App\LoanRequest  $loanRequest
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, LoanRequest $loanRequest)
+    public function update(StoreLoanRequest $request, LoanRequest $loanRequest)
     {
-        //
+        $this->authorize('update', $loanRequest);
+        // mengambil data form
+        $payload = $request->only('amount', 'duration', 'is_submitted');
+        // update record di db
+        $loanRequest->update($payload);
+
+        // response API berupa item
+        return new LoanRequestResource($loanRequest);
     }
 
     /**
@@ -98,6 +105,8 @@ class LoanRequestController extends Controller
      */
     public function destroy(LoanRequest $loanRequest)
     {
-        //
+        $this->authorize('delete', $loanRequest);
+		$loanRequest->delete();
+		return response([], 204);
     }
 }
