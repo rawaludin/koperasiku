@@ -29,6 +29,7 @@ class LoanRequestController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', LoanRequest::class);
         // tampilkan form pembuatan loan request
         return view('loan-request.create');
     }
@@ -41,6 +42,7 @@ class LoanRequestController extends Controller
      */
     public function store(StoreLoanRequest $request)
     {
+        $this->authorize('create', LoanRequest::class);
         // mengambil data form
         $payload = $request->only('amount', 'duration', 'is_submitted') + ['member_id' => auth()->user()->id];
         // membuat record di db
@@ -58,6 +60,8 @@ class LoanRequestController extends Controller
      */
     public function show(LoanRequest $loanRequest)
     {
+        $this->authorize('view', $loanRequest);
+
         // Tampilkan view untuk detail loan request
         return view('loan-request.show', compact('loanRequest'));
     }
@@ -70,6 +74,7 @@ class LoanRequestController extends Controller
      */
     public function edit(LoanRequest $loanRequest)
     {
+        $this->authorize('update', $loanRequest);
         // tampilkan form edit
         return view('loan-request.edit', compact('loanRequest'));
     }
@@ -83,6 +88,7 @@ class LoanRequestController extends Controller
      */
     public function update(StoreLoanRequest $request, LoanRequest $loanRequest)
     {
+        $this->authorize('update', $loanRequest);
         // mengambil data form
         $payload = $request->only('amount', 'duration', 'is_submitted');
         // update record di db
@@ -100,6 +106,7 @@ class LoanRequestController extends Controller
      */
     public function destroy(LoanRequest $loanRequest)
     {
+        $this->authorize('delete', $loanRequest);
         // hapus loan request yang didapatkan berdasarkan id loan request di URL
         $loanRequest->delete();
 
