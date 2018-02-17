@@ -6,10 +6,10 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card card-default">
-                <div class="card-header">Pinjaman Baru</div>
+                <div class="card-header">Ubah Pinjaman</div>
 
                 <div class="card-body">
-                    {!! Form::open(['route' => 'loan-requests.store']) !!}
+                    {!! Form::model($loanRequest, ['route' => ['loan-requests.update', $loanRequest->id], 'method' => 'put']) !!}
                         @include('loan-request._form')
                     {!! Form::close() !!} 
                 </div>
