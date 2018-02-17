@@ -18,4 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('loan-requests', 'LoanRequestController');
+Route::middleware(['auth', 'member'])->group(function() {
+    Route::resource('loan-requests', 'LoanRequestController');
+});
