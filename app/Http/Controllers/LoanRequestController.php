@@ -95,7 +95,7 @@ class LoanRequestController extends Controller
         // hapus loan request yang didapatkan berdasarkan id loan request di URL
         $loanRequest->delete();
 
-        // redirect user ke halaman listing loan request
-        return redirect()->route('loan-requests.index');
+        // redirect user ke halaman listing loan request dengan paginasi sebelumnya
+        return redirect()->route('loan-requests.index', ['page' => request()->get('page')]);
     }
 }
