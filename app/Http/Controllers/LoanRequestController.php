@@ -92,6 +92,10 @@ class LoanRequestController extends Controller
      */
     public function destroy(LoanRequest $loanRequest)
     {
-        //
+        // hapus loan request yang didapatkan berdasarkan id loan request di URL
+        $loanRequest->delete();
+
+        // redirect user ke halaman listing loan request
+        return redirect()->route('loan-requests.index');
     }
 }

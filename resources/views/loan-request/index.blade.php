@@ -27,6 +27,8 @@
                             <td>{{ $loanRequest->duration }} bulan</td>
                             <td>{{ $loanRequest->status }}</td>
                             <td>
+                                {{-- Include sub view --}}
+                                @include('loan-request._status')
                             </td>
 
                         </tr>
