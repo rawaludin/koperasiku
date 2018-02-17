@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\LoanRequest;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreLoanRequest;
 
 class LoanRequestController extends Controller
 {
@@ -25,7 +26,7 @@ class LoanRequestController extends Controller
      */
     public function create()
     {
-        //
+        return view('loan-request.create');
     }
 
     /**
@@ -34,9 +35,12 @@ class LoanRequestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreLoanRequest $request)
     {
-        //
+        $payload = $request->only('amount', 'duration', 'is_submitted') + ['member_id' => auth()->user()->id];
+        LoanRequest::create($payload);
+
+        return redirect()->route('loan-requests.index');
     }
 
     /**

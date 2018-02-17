@@ -8,6 +8,7 @@
                 <div class="card-header">Pinjaman</div>
 
                 <div class="card-body">
+                <p><a href="{{ route('loan-requests.create') }}" class="btn btn-primary">Pinjaman Baru</a></p>
                 <table class="table table-striped">
                     <thead>
                         <tr>
