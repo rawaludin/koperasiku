@@ -22,7 +22,7 @@
                     <tbody>
                     @forelse ($loanRequests as $loanRequest)
                         <tr>
-                            <th scope="row">{{ $loop->iteration + (request()->get('page') - 1) * $loanRequests->perPage() }}</th>
+                            <th scope="row">{{ $loanRequests->currentPage() + $loop->index }}</th>
                             <td>Rp {{ number_format($loanRequest->amount) }}</td>
                             <td>{{ $loanRequest->duration }} bulan</td>
                             <td>{{ $loanRequest->status }}</td>
