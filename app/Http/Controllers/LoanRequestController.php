@@ -58,7 +58,8 @@ class LoanRequestController extends Controller
      */
     public function show(LoanRequest $loanRequest)
     {
-        //
+        // Tampilkan view untuk detail loan request
+        return view('loan-request.show', compact('loanRequest'));
     }
 
     /**
