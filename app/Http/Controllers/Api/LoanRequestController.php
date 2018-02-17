@@ -16,7 +16,10 @@ class LoanRequestController extends Controller
      */
     public function index()
     {
-        $loanRequests = LoanRequest::paginate(3);
+        // ambil semua loan request untuk user yang login. paginasi 3 item per halaman
+        $loanRequests = auth()->user()->loanRequests()->paginate(3);
+
+        // response API berupa collection
         return LoanRequestResource::collection($loanRequests);
     }
 
@@ -49,6 +52,10 @@ class LoanRequestController extends Controller
      */
     public function show(LoanRequest $loanRequest)
     {
+        // check policy loan request untuk user ini
+        $this->authorize('view', $loanRequest);
+
+        // tampilkan response API berupa item.
         return new LoanRequestResource($loanRequest);
     }
 
