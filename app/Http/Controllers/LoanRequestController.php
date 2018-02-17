@@ -15,7 +15,10 @@ class LoanRequestController extends Controller
      */
     public function index()
     {
+        // ambil semua loan request untuk user yang login. paginasi 3 item per halaman
         $loanRequests = auth()->user()->loanRequests()->paginate(3);
+
+        // tampilkan view listing loan request, passing variable $loanRequest yang didapat sebelumnya
         return view('loan-request.index', compact('loanRequests'));
     }
 
@@ -26,6 +29,7 @@ class LoanRequestController extends Controller
      */
     public function create()
     {
+        // tampilkan form pembuatan loan request
         return view('loan-request.create');
     }
 
@@ -37,9 +41,12 @@ class LoanRequestController extends Controller
      */
     public function store(StoreLoanRequest $request)
     {
+        // mengambil data form
         $payload = $request->only('amount', 'duration', 'is_submitted') + ['member_id' => auth()->user()->id];
+        // membuat record di db
         LoanRequest::create($payload);
 
+        // redirect user ke halaman list loan-request
         return redirect()->route('loan-requests.index');
     }
 
