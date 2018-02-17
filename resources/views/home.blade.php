@@ -14,7 +14,9 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    Your API Token is <code>{{ auth()->user()->api_token }}</code>
+                    <a href="{{ route('token.regenerate') }}" class="btn btn-primary">Regenerate</a>
+
                 </div>
             </div>
         </div>

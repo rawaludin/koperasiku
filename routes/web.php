@@ -21,3 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware(['auth', 'member'])->group(function() {
     Route::resource('loan-requests', 'LoanRequestController');
 });
+
+Route::middleware('auth')->group(function() {
+    Route::get('regenerate-token', 'Auth\TokenController@regenerate')->name('token.regenerate');
+});
